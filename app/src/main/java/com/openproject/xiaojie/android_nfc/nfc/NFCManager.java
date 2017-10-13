@@ -13,13 +13,10 @@ import android.nfc.tech.MifareClassic;
 import android.nfc.tech.NfcA;
 import android.util.Log;
 
-import com.zhyd.wangpos.utils.UnitUtil;
-
 /**
  * NFC 管理类
  * Created by xxj on 09/20.
  */
-
 public class NFCManager {
     private static final NFCManager ourInstance = new NFCManager();
 
@@ -68,9 +65,9 @@ public class NFCManager {
         mFilters = new IntentFilter[]{ndef, tech};
 
         //我必须开喷了
-        //卧槽，这个mimeType 必须全满足才行了，直接 new String[]{...} 的意思是全满足，妈的我没见过
+        //Orz，这个mimeType 必须全满足才行了，直接 new String[]{...} 的意思是全满足，妈的我没见过
 //        mTechLists = new String[][]{new String[]{Ndef.class.getName(), MifareClassic.class.getName(), NfcA.class.getName(), NfcB.class.getName(), NfcV.class.getName(), NfcF.class.getName()}};
-        //卧槽，银行卡都刷出来了
+        //我去，银行卡都刷出来了
 //        mTechLists = new String[][]{{IsoDep.class.getName()}, {NfcA.class.getName()},{MifareClassic.class.getName()}};
         mTechLists = new String[][]{{NfcA.class.getName()},{MifareClassic.class.getName()}};
         if (!nfcAdapter.isEnabled()) {
@@ -133,7 +130,7 @@ public class NFCManager {
 
     public static String readID(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        String CardId = UnitUtil.ByteArrayToHexString(tagFromIntent.getId());
+        String CardId = Utils.ByteArrayToHexString(tagFromIntent.getId());
         Log.e("tagFromIntent", "tagFromIntent" + tagFromIntent + "  intent.getAction():" + intent.getAction() + "        ID     " + CardId);
         return CardId;
     }

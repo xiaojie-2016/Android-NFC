@@ -5,9 +5,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.util.Log;
-
-import com.zhyd.wangpos.custom.MyToast;
-import com.zhyd.wangpos.utils.UnitUtil;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class M1Util {
 
     public static String readID(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        String CardId = UnitUtil.ByteArrayToHexString(tagFromIntent.getId());
+        String CardId = Utils.ByteArrayToHexString(tagFromIntent.getId());
         Log.e("tagFromIntent", "tagFromIntent" + tagFromIntent + "  intent.getAction():" + intent.getAction() + "        ID     " + CardId);
         return CardId;
     }
@@ -294,7 +292,7 @@ public class M1Util {
 //            String writeStr = contentEt.getText().toString();
             if (auth) {
                 if (writedata != null && writedata.size() != 0) {
-                    /**
+                    /*
                      * 每个block只能存放16个字节bytes（不能多不能少） 每4个block为一个扇区，
                      * 0-3的第一个扇区存储M1卡出厂信息 4-7的第二个扇区可存储信息， 其中第7个block存放秘钥和权限信息：
                      * 内容为：000000000000FF078069FFFFFFFFFFFF(byte[]转换成的16进制字符串)
@@ -339,7 +337,7 @@ public class M1Util {
     }
 
     private static void updateLogInfo(String msg) {
-        MyToast.showShort(msg);
+        Toast.makeText(Utils.getContext(),msg,Toast.LENGTH_SHORT).show();
         Log.e("NFC M1Util Print", msg);
     }
 }
