@@ -99,6 +99,9 @@ public class NFCManager {
         ab.create().show();
     }
 
+    /**
+     * 在要使用 nfc 的 activity 的生命周期中初始化
+     */
     public void onResume(Activity activity) {
         if (nfcAdapter != null) {
             if (mActivity == null) {
@@ -117,6 +120,9 @@ public class NFCManager {
         }
     }
 
+    /**
+     * 在要使用 nfc 的 activity 的生命周期中初始化
+     */
     public void onPause(Activity activity) {
         if (nfcAdapter != null) {
             nfcAdapter.disableForegroundDispatch(activity);
@@ -128,6 +134,11 @@ public class NFCManager {
         return nfcAdapter != null && nfcAdapter.isEnabled();
     }
 
+    /**
+     * 读取卡的 id
+     * 使用：
+     *      在 activity 的 onNewIntent 方法中使用
+     */
     public static String readID(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         String CardId = Utils.ByteArrayToHexString(tagFromIntent.getId());
